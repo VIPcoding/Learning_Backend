@@ -3,12 +3,12 @@ import axios from "axios"
 
 
 function App() {
-  const [note, setNote] = useState([])
+  const [notes, setNotes] = useState([])
 
   function fetchData(){
   axios.get("http://localhost:3000/notes")
   .then((res)=>{
-    setNote(res.data.note)
+    setNotes(res.data.note)
   })
  }
 
@@ -16,20 +16,54 @@ function App() {
     fetchData()
   },[])
 
+  
+ const handleSubmit = (e) =>{
+    e.prevevntDefault()
+
+    const {title, description} = e.target.elements
+
+
+    axios.post("http://localhost:3000/notes", {
+      title: title.value,
+      description: description.value
+    })
+      .then(res => {
+        console.log(res.data)
+
+        fetchNotes()
+        
+      })
+ }
+
+
+function handleDeleteNote(noteId){
+    axios.delete("http://localhost:3000/notes/:noteId"+noteId)
+    .then(res=>{
+      console.log(res.data)
+      fetchNotes()
+    })
+  }
+
+
   return (
   <>
-  <div className='notes'> 
-    {
-      note.map((elem)=>{
-        console.log(elem);
-        return <div key={elem.id} className='note'>
-           <h1>{elem.title}</h1>
-          <h3>{elem.description}</h3>
-        </div>
-      })
-    }
-   
-  </div>
+  <form className='note-create-form' onSubmit={()=>handleSubmit} >
+        <input name='title' type="text" placeholder='Enter title' />
+        <input name='description' type="text" placeholder='Enter description' />
+        <button > Create note</button>
+      </form>
+
+      <div className="notes">
+        {
+          notes.map(note => {
+            return <div key={note._id} className="note">
+              <h1>{note.title}</h1>
+              <p>{note.description}</p>
+              <button onClick={()=>{handleDeleteNote(note._id)}}>delete</button>
+            </div>
+          })
+        }
+      </div>
   
   </>
   )
