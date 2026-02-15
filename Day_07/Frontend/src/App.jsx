@@ -37,18 +37,18 @@ function App() {
   }
 
   
-  // function handleUpdate(noteId,e){
-  //   console.log(noteId,note)
-  //   // const { description} = e.target.elements
+  function handleUpdate(noteId,e){
+    console.log(noteId,note)
+    // const { description} = e.target.elements
   
-  //   // axios.patch(`http://localhost:3000/api/notes/${noteId}`, {
-  //   //   description:description.value
-  //   // })
-  //   // .then((res)=>{
-  //   //   console.log(res.data);
-  //   //   fetchdata()
-  //   // })
-  // }
+    axios.patch(`http://localhost:3000/api/notes/${noteId}`, {
+      description:"Data Modified"
+    })
+    .then((res)=>{
+      console.log(res.data);
+      fetchdata()
+    })
+  }
 
 
 
@@ -69,8 +69,8 @@ function App() {
               <button onClick={()=>{ 
                 handleDelete(notes._id)
               }}>delete</button>
-              <button onClick={(elem)=>{ 
-                handleUpdate(notes._id,elem)
+              <button onClick={()=>{ 
+                handleUpdate(notes._id)
               }}>update</button>
             </div>
           );
