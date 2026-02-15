@@ -5,7 +5,7 @@ function App() {
   const [note, setNote] = useState([]);
 
   function fetchdata() {
-    axios.get("http://localhost:3000/api/notes").then((res) => {
+    axios.get("https://learning-backend-srcc.onrender.com/api/notes").then((res) => {
       setNote(res.data.note);
     });
   }
@@ -18,7 +18,7 @@ function App() {
     e.preventDefault();
     const { title, description } = e.target.elements;
     axios
-      .post("http://localhost:3000/api/notes", {
+      .post("https://learning-backend-srcc.onrender.com/api/notes", {
         title: title.value,
         description: description.value,
       })
@@ -30,7 +30,7 @@ function App() {
 
   function handleDelete(noteId){
     console.log(noteId);
-    axios.delete(`http://localhost:3000/api/notes/${noteId}`)
+    axios.delete(`https://learning-backend-srcc.onrender.com/api/notes/${noteId}`)
     .then((res)=>{
         fetchdata()
     })
@@ -41,7 +41,7 @@ function App() {
     console.log(noteId,note)
     // const { description} = e.target.elements
   
-    axios.patch(`http://localhost:3000/api/notes/${noteId}`, {
+    axios.patch(`https://learning-backend-srcc.onrender.com/api/notes/${noteId}`, {
       description:"Data Modified"
     })
     .then((res)=>{
