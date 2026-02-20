@@ -15,6 +15,11 @@ const userSchema = new mongoose({
     password:{
         type:String,
         required:[true, "usesrname is required"]
+    },
+    bio:String,
+    profileImage:{
+        type:String,
+        default:"https://ik.imagekit.io/CODER/user.png"
     }
 })
 
