@@ -1,9 +1,8 @@
 const express = require("express")
-const app = express()
 const authRoute = require("./route/auth.route")
 const postRoute = require("./route/post.route")
 const cookieParser = require("cookie-parser")
-
+const app = express()
 
 
 
