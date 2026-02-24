@@ -9,7 +9,6 @@ const imageFile = new imageKit({
 
 
 async function createPostConrtroller(req, res) {
-    console.log(req.body, req.file);
 
     const token = req.cookies.token
 
@@ -19,7 +18,13 @@ async function createPostConrtroller(req, res) {
         })
     }
 
-    const decode = jwt.verify(token, process.env.JWT_SECRET)
+    let decoded = null   
+    try{ decoded = jwt.verify(token, process.env.JWT_SECRET)}
+    catch(err){
+        return res.status(401).json({
+            message: "user not authorized"
+        })
+    }
 
     const file = await imageFile.files.upload({
         files: await toFile(Buffer.from(req.file.buffer), 'file'),
