@@ -45,6 +45,10 @@ async function createPostConrtroller(req, res) {
     
 }
 
+async function getPostController(req, res) {
+    const token = req.cookies
+}
+
 module.exports = {
     createPostConrtroller
 }
