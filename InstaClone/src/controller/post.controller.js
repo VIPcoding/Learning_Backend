@@ -46,7 +46,23 @@ async function createPostConrtroller(req, res) {
 }
 
 async function getPostController(req, res) {
-    const token = req.cookies
+    const token = req.cookies.token
+
+    if (!token) {
+        return res.status(401).json({
+            message: "UnAuthorized Access"
+        })
+    }
+
+    let decoded;
+    try {
+        decoded = jwt.verify(token, process.env.JWT_SECRET)
+    } catch (err) {
+        return res.status(401).json({
+            message: "Token invalid"
+        })
+    }
+
 }
 
 module.exports = {
