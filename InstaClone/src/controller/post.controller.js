@@ -65,6 +65,35 @@ async function getPostController(req, res) {
 
 }
 
+async function getPostDetailsController(req, res) {
+
+
+    const userId = req.user.id
+    const postId = req.params.postId
+
+    const post = await postModel.findById(postId)
+
+    if (!post) {
+        return res.status(404).json({
+            message: "Post not found."
+        })
+    }
+
+    const isValidUser = post.user.toString() === userId
+
+    if (!isValidUser) {
+        return res.status(403).json({
+            message: "Forbidden Content."
+        })
+    }
+
+    return res.status(200).json({
+        message: "Post fetched  successfully.",
+        post
+    })
+
+}
+
 module.exports = {
     createPostConrtroller,
     getPostController
