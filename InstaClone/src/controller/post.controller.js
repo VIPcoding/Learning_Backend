@@ -6,8 +6,7 @@ const jwt = require("jsonwebtoken")
 const imageFile = new imageKit({
    privateKey:process.env.IMAGEKIT_PRIVATE_KEY,
 });
-
-
+// createPostConrtorller
 async function createPostConrtroller(req, res) {
 
     const token = req.cookies.token
@@ -45,6 +44,7 @@ async function createPostConrtroller(req, res) {
     
 }
 
+// getpostController
 async function getPostController(req, res) {
     const token = req.cookies.token
 
@@ -65,6 +65,7 @@ async function getPostController(req, res) {
 
 }
 
+// getpostdetailcontroller
 async function getPostDetailsController(req, res) {
 
 
